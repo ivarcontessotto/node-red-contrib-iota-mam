@@ -15,5 +15,6 @@
   "license": "ISC",
   "dependencies": {
     "iota.lib.js": "^0.4.7"
-  }
+  },
+  "keywords": [ "node-red" ]
 }
