@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType('mam',{
+    RED.nodes.registerType('mamFetch',{
         category: 'function',
         color: '#a6bbcf',
         defaults: {
@@ -9,18 +9,18 @@
         outputs:1,
         icon: "file.png",
         label: function() {
-            return this.name||"mam";
+            return this.name||"mamFetch";
         }
     });
 </script>
 
-<script type="text/x-red" data-template-name="mam">
+<script type="text/x-red" data-template-name="mamFetch">
     <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> MAM node</label>
-        <input type="text" id="node-input-name" placeholder="Name">
+        <label for="node-input-name"><i class="icon-tag"></i> MAM fetch node</label>
+        <input type="text" id="node-input-name" placeholder="Mam fetch">
     </div>
 </script>
 
-<script type="text/x-red" data-help-name="mam">
+<script type="text/x-red" data-help-name="mamFetch">
     <p>MAM fetch node</p>
 </script>

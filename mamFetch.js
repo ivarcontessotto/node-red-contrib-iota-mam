@@ -1,9 +1,11 @@
 const IOTA = require('iota.lib.js');
-const iota = new IOTA({ provider: 'http://node04.nodeblie.de:14265/ ' })
+// const iota = new IOTA({ provider: 'http://node04.nodeblie.de:14265/ ' })
+const iota = new IOTA({ provider: `https://nodes.testnet.iota.org:443/` })
+
 const MAM = require('./mam.node.js');
 
 module.exports = function(RED) {
-    function LowerCaseNode(config) {
+    function mamFetch(config) {
         RED.nodes.createNode(this,config);
         var node = this;
         let mamState = MAM.init(iota)
@@ -24,5 +26,5 @@ module.exports = function(RED) {
         		});
         });
     }
-    RED.nodes.registerType("mam",LowerCaseNode);
+    RED.nodes.registerType("mamFetch",mamFetch);
 }
