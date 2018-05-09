@@ -1,6 +1,6 @@
 const IOTA = require('iota.lib.js');
-// const iota = new IOTA({ provider: 'http://node04.nodeblie.de:14265/ ' })
-const iota = new IOTA({ provider: `https://nodes.testnet.iota.org:443/` })
+const iota = new IOTA({ provider: 'http://node04.nodeblie.de:14265/ ' })
+// const iota = new IOTA({ provider: `https://nodes.testnet.iota.org:443/` })
 
 const MAM = require('./mam.node.js');
 
