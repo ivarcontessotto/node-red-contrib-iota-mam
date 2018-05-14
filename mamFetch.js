@@ -21,7 +21,7 @@ module.exports = function(RED) {
             let resp = MAM.fetch(msg.payload, 'public', null, function(data) {
         				let json = JSON.parse(iota.utils.fromTrytes(data));
                 msg.payload = JSON.stringify(json);
-                console.log("console "+ msg.payload)
+                console.log("mam fetch value "+ msg.payload)
                 self.send(msg);
         		});
         });
