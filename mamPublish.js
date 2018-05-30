@@ -28,8 +28,9 @@ module.exports = function(RED) {
               console.log(msg.payload.tstamp)
               // upload sensorTag's temperature
               console.log(msg.payload.json_data.ambient)
+              let concatWithDate = JSON.stringify("Sensor Timestamp "+new Date()+" measured ambiant temperature "+msg.payload.json_data.ambient);
               // HERE you could change to upload whole msg.payload json object too
-              let trytes = iota.utils.toTrytes(JSON.stringify(msg.payload.json_data.ambient))
+              let trytes = iota.utils.toTrytes(concatWithDate)
               let message = MAM.create(this._state, trytes);
               // Update the mam state so we can keep adding messages.
               this._state = message.state;
