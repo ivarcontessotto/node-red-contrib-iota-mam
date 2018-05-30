@@ -3,11 +3,12 @@
         category: 'function',
         color: '#a6bbcf',
         defaults: {
-            iotaNode: {value: "http://node04.nodeblie.de:14265/"}
+            iotaNode: {value: "http://node04.nodeblie.de:14265/"},
+            root: {value: "EIJVGVYZXEYGMG9PUFVPTSMHICLHYWOEHWUTOGPCXWEHIOSRP9WUTCQGEBZLFXFUTEWUMTUAQLCEOLQPV"}
         },
         inputs:1,
         outputs:1,
-        icon: "file.png",
+        icon: "iota.png",
         label: function() {
             return this.name||"mamFetch";
         }
@@ -18,6 +19,8 @@
     <div class="form-row">
         <label for="node-function-iotaNode"><i class="icon-tag"></i> MAM fetch node</label>
         <input type="text" id="node-input-iotaNode">
+        <label for="node-function-root"><i class="icon-tag"></i> MAM ROOT</label>
+        <input type="text" id="node-input-root">
     </div>
 </script>
 

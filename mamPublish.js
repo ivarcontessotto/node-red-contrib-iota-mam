@@ -1,6 +1,4 @@
 const IOTA = require('iota.lib.js');
-const iota = new IOTA({ provider: 'http://node04.nodeblie.de:14265/ ' })
-// const iota = new IOTA({ provider: `https://nodes.testnet.iota.org:443/` })
 const MAM = require('./mam.node.js');
 
 function mamSeedGen() {
@@ -20,6 +18,8 @@ module.exports = function(RED) {
         var node = this;
         node._sec = 2;
         node._firstroot = '';
+        console.log("MAM publish INIT on iota node: " + config.iotaNode);
+        const iota = new IOTA({ provider: config.iotaNode })
         node._state = MAM.init(iota, mamSeedGen(), 2, 0);
         node.readyMAM = true;
 
@@ -34,7 +34,7 @@ module.exports = function(RED) {
               // Update the mam state so we can keep adding messages.
               this._state = message.state;
 
-              console.log("MAM UPLOAD")
+              console.log("Uploading dataset via MAM - please wait")
               console.log(message.address)
               let resp = MAM.attach(message.payload, message.address);
               this.readyMAM = false;

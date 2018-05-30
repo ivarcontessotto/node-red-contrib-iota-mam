@@ -3,11 +3,11 @@
         category: 'function',
         color: '#f6bbcf',
         defaults: {
-            name: {value:""}
+            iotaNode: {value: "http://node04.nodeblie.de:14265/"}
         },
         inputs:1,
         outputs:1,
-        icon: "file.png",
+        icon: "iota.png",
         label: function() {
             return this.name||"mamPublish";
         }
@@ -16,8 +16,8 @@
 
 <script type="text/x-red" data-template-name="mamPublish">
     <div class="form-row">
-        <label for="node-input-name"><i class="icon-tag"></i> MAM publish node</label>
-        <input type="text" id="node-input-name" placeholder="Mam publish">
+    <label for="node-function-iotaNode"><i class="icon-tag"></i> MAM publish node</label>
+    <input type="text" id="node-input-iotaNode">
     </div>
 </script>
 
