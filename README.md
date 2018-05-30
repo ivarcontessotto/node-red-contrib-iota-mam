@@ -33,21 +33,15 @@ Drag MAM function node into a flow and wire it accordingly
 
 ## MAM fetch
 
-Start deploying a single 'input inject'.
-Set its msg.payload (**msg.payload = "your MAM_ROOT"**)
+Start deploying a single 'mamFetch function node'.
+Set its root property (**root = "your MAM_ROOT"**)
 
-wire its output to
--> mamFetch node
-
-and wire this node's output to
+wire this node's output to
 -> any output ( e.g. a chart displaying your msg.payload)
 
-Start injecting the payload on the mam function node once and it will
-automatically fetch all MAM stream data available.
+> try with EIJVGVYZXEYGMG9PUFVPTSMHICLHYWOEHWUTOGPCXWEHIOSRP9WUTCQGEBZLFXFUTEWUMTUAQLCEOLQPV)
 
-> try with TSC9BIOTHQRDLDDALNNDWWXCSDNBCJJIAW9TRRWDUSWKW9B9AJ9O9BIIWIVDYLKHYPNKHZXTYVL9PIPFJ)
-
-This should hold a temperature sequence. (as of 14 may 2018)
+This should hold a temperature sequence. (as of 30 may 2018)
 
 
 ## MAM publish
