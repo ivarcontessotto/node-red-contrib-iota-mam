@@ -1,5 +1,5 @@
 const IOTA = require('iota.lib.js');
-const iota = new IOTA({ provider: 'http://node04.nodeblie.de:14265/ ' })
+
 // const iota = new IOTA({ provider: `https://nodes.testnet.iota.org:443/` })
 
 const MAM = require('./mam.node.js');
@@ -7,7 +7,9 @@ const MAM = require('./mam.node.js');
 module.exports = function(RED) {
     function mamFetch(config) {
         RED.nodes.createNode(this,config);
+        console.log(config);
         var node = this;
+        const iota = new IOTA({ provider: config.iotaNode })
         let mamState = MAM.init(iota)
 
         // trigger for mam update
