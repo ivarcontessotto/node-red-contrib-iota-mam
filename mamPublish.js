@@ -22,14 +22,18 @@ module.exports = function(RED) {
         const iota = new IOTA({ provider: config.iotaNode })
         node._state = MAM.init(iota, mamSeedGen(), 2, 0);
         node.readyMAM = true;
-        var self = node;
 
         node.on('input', function(msg) {
             if (this.readyMAM) {
               // upload sensorTag's temperature
               // let concatWithDate = JSON.stringify("Sensor Timestamp "+new Date()+" measured ambiant temperature "+msg.payload.json_data);
               // HERE you could change to upload whole msg.payload json object too
-              let trytes = iota.utils.toTrytes("TEST")
+              // console.log(msg.payload.json_data)
+              let concatWithDate = JSON.stringify("Sensor Timestamp "+new Date()+" measured ambiant temperature "+msg.payload.json_data.ambient);
+              // HERE you could change to upload whole msg.payload json object too
+              let trytes = iota.utils.toTrytes(concatWithDate)
+
+
               let message = MAM.create(this._state, trytes);
               // Update the mam state so we can keep adding messages.
               this._state = message.state;
@@ -40,8 +44,8 @@ module.exports = function(RED) {
               this.readyMAM = false;
               resp.then(function(result) {
                  // console.log(result) //will log results.
-                 self.readyMAM = true;
-                 self.send({payload:message.address});
+                 node.readyMAM = true;
+                 node.send({payload:message.address});
               });
             }
         });

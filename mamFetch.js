@@ -18,7 +18,10 @@ module.exports = function(RED) {
         resp.then(function(result) {
           console.log("Datasets found");
           console.log("###############################################");
+          var json = {payload:"START ROOT = " + mamRoot};
+          node.send(json);
           result.messages.forEach(function(result) {
+            // console.log(iota.utils.fromTrytes(result));
             console.log(JSON.parse(iota.utils.fromTrytes(result)));
           });
           console.log("###############################################");
