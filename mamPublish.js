@@ -13,13 +13,10 @@ module.exports = function(RED) {
 
         node.on('input', function(msg) {
             if (this.readyMAM) {
-              // upload sensorTag's temperature
-              // let concatWithDate = JSON.stringify("Sensor Timestamp "+new Date()+" measured ambiant temperature "+msg.payload.json_data);
-              // HERE you could change to upload whole msg.payload json object too
-              // console.log(msg.payload.json_data)
-              let concatWithDate = JSON.stringify("Sensor Timestamp "+new Date()+" measured ambiant temperature "+msg.payload.json_data.ambient);
-              // HERE you could change to upload whole msg.payload json object too
-              let trytes = IOTA_CONVERTER.asciiToTrytes(concatWithDate)
+              // upload sensorTag's data packet: (msg.payload.json_data)
+              const time = Date.now();
+              const packet = { time, data: { msg.payload.json_data } };
+              let trytes = IOTA_CONVERTER.asciiToTrytes(JSON.stringify(packet));
 
               let message = MAM.create(this._state, trytes);
               // Update the mam state so we can keep adding messages.
