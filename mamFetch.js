@@ -1,4 +1,3 @@
-const IOTA = require('@iota/core');
 const MAM = require('@iota/mam');
 
 module.exports = function(RED) {
@@ -8,14 +7,15 @@ module.exports = function(RED) {
         console.log("MAM fetch on iota node: " + config.iotaNode);
         console.log("MAM root: " + config.root);
         console.log("Fetching data ... ");
-        const iota = IOTA.composeAPI({ provider: config.iotaNode })
 
         let mamRoot = config.root;
-        let mamState = MAM.init(iota)
+        let mamState = MAM.init({ provider: config.iotaNode })
+        console.log(MAM);
 
         let resp = MAM.fetch(mamRoot, 'public', null);
 
         resp.then(function(result) {
+          console.log(result);
           console.log("Datasets found");
           console.log("###############################################");
           var json = {payload:"START ROOT = " + mamRoot};

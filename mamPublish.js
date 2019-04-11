@@ -1,16 +1,4 @@
-const IOTA = require('@iota/core');
 const MAM = require('@iota/mam');
-
-function mamSeedGen() {
-  var text = "";
-  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ9";
-
-  for (var i = 0; i < 81; i++)
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-  console.log('New Channel with following SEED generated: ' + text);
-  return text;
-}
 
 module.exports = function(RED) {
     function mamPublish(config) {
@@ -19,8 +7,7 @@ module.exports = function(RED) {
         node._sec = 2;
         node._firstroot = '';
         console.log("MAM publish INIT on iota node: " + config.iotaNode);
-        const iota = IOTA.composeAPI({ provider: config.iotaNode })
-        node._state = MAM.init(iota, mamSeedGen(), 2, 0);
+        node._state = MAM.init({ provider: config.iotaNode })
         node.readyMAM = true;
 
         node.on('input', function(msg) {
