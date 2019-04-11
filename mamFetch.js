@@ -8,7 +8,7 @@ module.exports = function(RED) {
         console.log("MAM fetch on iota node: " + config.iotaNode);
         console.log("MAM root: " + config.root);
         console.log("Fetching data ... ");
-        const iota = Iota.composeAPI({ provider: config.iotaNode })
+        const iota = IOTA.composeAPI({ provider: config.iotaNode })
 
         let mamRoot = config.root;
         let mamState = MAM.init(iota)
