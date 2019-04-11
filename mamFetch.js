@@ -21,7 +21,7 @@ module.exports = function(RED) {
           var json = {payload:"START ROOT = " + mamRoot};
           node.send(json);
           result.messages.forEach(function(value) {
-            console.log(Converter.trytesToAscii(value))
+            console.log(IOTA_CONVERTER.trytesToAscii(value))
           });
           console.log("###############################################");
         });
