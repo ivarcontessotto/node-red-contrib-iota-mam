@@ -9,13 +9,11 @@ module.exports = function(RED) {
         console.log("MAM root: " + config.root);
         console.log("Fetching data ... ");
 
-        let mamRoot = config.root;
+        let mamRoot = config.root.slice(0,81);
         let mamState = MAM.init({ provider: config.iotaNode })
-
         let resp = MAM.fetch(mamRoot, 'public', null);
 
         resp.then(function(result) {
-          console.log(result);
           console.log("Datasets found");
           console.log("###############################################");
           var json = {payload:"START ROOT = " + mamRoot};
