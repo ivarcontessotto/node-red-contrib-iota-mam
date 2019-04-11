@@ -1,4 +1,5 @@
 const MAM = require('@iota/mam');
+const IOTA_CONVERTER = require('@iota/converter')
 
 module.exports = function(RED) {
     function mamFetch(config) {
@@ -10,7 +11,6 @@ module.exports = function(RED) {
 
         let mamRoot = config.root;
         let mamState = MAM.init({ provider: config.iotaNode })
-        console.log(MAM);
 
         let resp = MAM.fetch(mamRoot, 'public', null);
 
@@ -20,9 +20,8 @@ module.exports = function(RED) {
           console.log("###############################################");
           var json = {payload:"START ROOT = " + mamRoot};
           node.send(json);
-          result.messages.forEach(function(result) {
-            // console.log(iota.utils.fromTrytes(result));
-            console.log(JSON.parse(iota.utils.fromTrytes(result)));
+          result.messages.forEach(function(value) {
+            console.log(Converter.trytesToAscii(value))
           });
           console.log("###############################################");
         });
