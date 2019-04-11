@@ -1,5 +1,5 @@
-const IOTA = require('iota.lib.js');
-const MAM = require('./mam.node.js');
+const IOTA = require('@iota/core');
+const MAM = require('@iota/mam');
 
 module.exports = function(RED) {
     function mamFetch(config) {
