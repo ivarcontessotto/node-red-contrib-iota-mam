@@ -19,7 +19,7 @@ module.exports = function(RED) {
         node._sec = 2;
         node._firstroot = '';
         console.log("MAM publish INIT on iota node: " + config.iotaNode);
-        const iota = new IOTA({ provider: config.iotaNode })
+        const iota = Iota.composeAPI({ provider: config.iotaNode })
         node._state = MAM.init(iota, mamSeedGen(), 2, 0);
         node.readyMAM = true;
 
