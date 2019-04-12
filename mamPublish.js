@@ -15,7 +15,7 @@ module.exports = function(RED) {
             if (this.readyMAM) {
               // upload sensorTag's data packet: (msg.payload.json_data)
               const time = Date.now();
-              const packet = { time, data: { msg.payload.json_data } };
+              const packet = { time, data:  msg.payload.json_data  };
               let trytes = IOTA_CONVERTER.asciiToTrytes(JSON.stringify(packet));
 
               let message = MAM.create(this._state, trytes);

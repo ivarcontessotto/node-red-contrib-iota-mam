@@ -1,5 +1,7 @@
 # Node-red IOTA MAM module
 
+Updated on 11/04/2019
+
 ## Requirements
 
 Install node-red globally and install ui packages and the sensortag package
@@ -54,12 +56,4 @@ wire its output to
 and wire this node's output to an
 -> (optional) output for logging
 
-The MAM publish gets input data from sensorTag, uploads this data and upon
-MAM confirmation is ready to take new data from your sensorTag device.
-
-
-# *TODO - IMPORTANT!!!*
-*Currently the MAM publish function records the ambiant temperature of your
-sensorTag. This is very EASY to change and you can upload any sensor data required.
-Please checkout source code (mamPublish.js - see gitlab project link attached) to adapt both
-functions to your specific node-red sensor device.*
+The MAM publish gets input data from sensorTag, uploads the data packet it receives (can be a mix of temperature, lux etc) and upon MAM confirmation is ready to take new data from your sensorTag device.
