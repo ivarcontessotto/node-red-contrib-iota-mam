@@ -32,6 +32,10 @@ and
 
 Drag MAM function node into a flow and wire it accordingly
 
+## Node-red sample file
+
+Find included in root directory a flow sample file called flows_Air.json
+If you have any issues regarding this module, please test with this file and give a clear issue description. Thank you!
 
 ## MAM fetch
 
