@@ -32,9 +32,11 @@ and
 
 Drag MAM function node into a flow and wire it accordingly
 
-## Node-red sample file
+## CONFIG - At first use a Node-red sample file !!!
 
 Find included in root directory a flow sample file called flows_Air.json
+It provides you with an initial value config for ROOT (mamFetch) and a devnet IOTA node.
+
 If you have any issues regarding this module, please test with this file and give a clear issue description. Thank you!
 
 ## MAM fetch
