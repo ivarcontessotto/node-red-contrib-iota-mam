@@ -3,8 +3,11 @@
         category: 'function',
         color: '#a6bbcf',
         defaults: {
-            iotaNode: {value: "http://node04.nodeblie.de:14265/"},
-            root: {value: "IRKPFNROJEPYXKDEYZSRVDHWYQE99YPFKZF9IDCYI9I9NFVTGNOMKEDXEOW9SGTVNJCZSNURHAPNSCQL9XOEMVZYTX"}
+            iotaNode: {value: "https://nodes.devnet.thetangle.org:443"},
+            root: {value: "TZXPUGEGVFRQINJLIJLBMTUDVMRJSNNOPULCLDPALBKJZBLG9WGGPMVIYOGEWJNUKUPUE9JWJIIBBRHWDQQCHHGLQW"},
+            mode: {value: 'public'},
+            secret: {value: 'VERYSECRETKEY'},
+            limit: {value: 1}
         },
         inputs:1,
         outputs:1,
@@ -17,10 +20,20 @@
 
 <script type="text/x-red" data-template-name="mamFetch">
     <div class="form-row">
-        <label for="node-function-iotaNode"><i class="icon-tag"></i> MAM fetch node</label>
+        <label for="node-function-iotaNode"><i class="icon-tag"></i> MAM node</label>
         <input type="text" id="node-input-iotaNode">
-        <label for="node-function-root"><i class="icon-tag"></i> MAM ROOT</label>
+        <br>
+        <label for="node-function-root"><i class="icon-tag"></i> MAM root</label>
         <input type="text" id="node-input-root">
+        <br>
+        <label for="node-function-root"><i class="icon-tag"></i> MAM mode</label>
+        <input type="text" id="node-input-mode">
+        <br>
+        <label for="node-function-key"><i class="icon-tag"></i> MAM secret key (restricted mode) </label>
+        <input type="text" id="node-input-secret">
+        <br>
+        <label for="node-function-secretKey"><i class="icon-tag"></i> MAM fetch limit</label>
+        <input type="text" id="node-input-limit">
     </div>
 </script>
 

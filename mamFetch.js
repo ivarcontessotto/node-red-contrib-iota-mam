@@ -7,17 +7,26 @@ module.exports = function(RED) {
         var node = this;
         console.log("MAM fetch on iota node: " + config.iotaNode);
         console.log("MAM root: " + config.root);
+        console.log("MAM mode: " + config.mode);
+        console.log("MAM secret: " + config.secret);
         console.log("Fetching data ... ");
 
-        let mamRoot = config.root.slice(0,81);
-        let mamState = MAM.init({ provider: config.iotaNode })
-        let resp = MAM.fetch(mamRoot, 'public', null);
+        let mamState = MAM.init({ provider: config.iotaNode });
+        let root = config.root.slice(0,81);
+        if (config.mode == 'restricted' && config.secret.length == 0) {
+          console.log("Restricted mode: No MAM secret selected");
+        }
+        if (config.mode == 'public') {
+          config.secret = null;
+        }
+        let resp = MAM.fetch(root, config.mode, config.secret, null, config.limit);
 
         resp.then(function(result) {
           console.log("Datasets found");
           console.log("###############################################");
-          var json = {payload:"START ROOT = " + mamRoot};
+          var json = {payload:"START ROOT = " + root};
           node.send(json);
+          console.log(result);
           result.messages.forEach(function(value) {
             console.log(IOTA_CONVERTER.trytesToAscii(value))
           });

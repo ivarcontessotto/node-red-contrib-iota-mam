@@ -9,6 +9,8 @@ module.exports = function(RED) {
         node._firstroot = '';
         console.log("MAM publish INIT on iota node: " + config.iotaNode);
         node._state = MAM.init({ provider: config.iotaNode })
+        // Set channel mode (use a secret key for restricted mode)
+        node._state = MAM.changeMode(node._state, config.mode, config.secretKey)
         node.readyMAM = true;
 
         node.on('input', function(msg) {
