@@ -1,6 +1,6 @@
 # Node-red IOTA MAM module
 
-Updated on 11/04/2019
+Updated on 16/04/2019
 
 ## Requirements
 
@@ -33,10 +33,13 @@ and
 
 Drag MAM function node into a flow and wire it accordingly
 
-## CONFIG - At first use a Node-red sample file !!!
+## CONFIG - At first use the Node-red sample file included !!!
 
-Find included in root directory a flow sample file called flows_Air.json
-It provides you with an initial value config for ROOT (mamFetch) and a devnet IOTA node.
+Find included in the root directory a flow sample file called flows_Air.json
+It provides you with an initial config for ROOT (mamFetch) and a devnet IOTA node.
+
+Also you can switch to the newly added node-red dashboard to publish/fetch data
+and see a live visualization.
 
 If you have any issues regarding this module, please test with this file and give a clear issue description. Thank you!
 
@@ -48,14 +51,15 @@ Set its root property (**root = "your MAM_ROOT"**)
 wire this node's output to
 -> any output ( e.g. a chart displaying your msg.payload)
 
-> try with EIJVGVYZXEYGMG9PUFVPTSMHICLHYWOEHWUTOGPCXWEHIOSRP9WUTCQGEBZLFXFUTEWUMTUAQLCEOLQPV)
+> try with OPXFHFGWWHRTSDYBJHZNNATUVAFJUBCNV9ZJXWDPGCAQFTZFDIKCXDZQYHKYHRILZ9QAOR9GHTTATXJSH)
 
-This should hold a temperature sequence. (as of 30 may 2018)
+This should hold a non-encrypted (public) data packet sequence. (as of 16 april 2019)
 
 
 ## MAM publish
 
 Deploy a sensorTag as input data source.
+(Please report an issue https://gitlab.com/ouya/node-red-contrib-iota-mam/issues if you encounter problems with other sensors. We are looking to support all general sensors in the near future)
 
 wire its output to
 -> mamPublish node
