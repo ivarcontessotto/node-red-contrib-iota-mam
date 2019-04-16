@@ -5,19 +5,15 @@ module.exports = function(RED) {
     function mamPublish(config) {
         RED.nodes.createNode(this,config);
         var node = this;
-        node._sec = 2;
-        node._firstroot = '';
         console.log("MAM publish INIT on iota node: " + config.iotaNode);
-        node._state = MAM.init({ provider: config.iotaNode })
-        // Set channel mode (use a secret key for restricted mode)
-        node._state = MAM.changeMode(node._state, config.mode, config.secretKey)
+        node._state = MAM.init({ provider: config.iotaNode });
+        node._state = MAM.changeMode(node._state, config.mode, config.secretKey);
         node.readyMAM = true;
 
         node.on('input', function(msg) {
             if (this.readyMAM) {
               // upload sensorTag's data packet: (msg.payload.json_data)
-              const time = Date.now();
-              const packet = { time, data:  msg.payload.json_data  };
+              const packet = { time: Date.now(), data: msg.payload.json_data };
               let trytes = IOTA_CONVERTER.asciiToTrytes(JSON.stringify(packet));
 
               let message = MAM.create(this._state, trytes);

@@ -12,7 +12,8 @@ sudo npm install -g --unsafe-perm node-red
 
 in your ~/.node-red installation directory type:
 ```
-npm install node-red-dashboard node-red-contrib-sensortag
+npm install node-red-dashboard node-red-contrib-sensortag node-red-contrib-simple-gate
+
 ```
 
 # IOTA-MAM module installation
