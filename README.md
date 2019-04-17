@@ -1,6 +1,6 @@
 # Node-red IOTA MAM module
 
-Updated on 16/04/2019
+Updated on 18/04/2019
 
 ## Requirements
 
@@ -51,9 +51,9 @@ Set its root property (**root = "your MAM_ROOT"**)
 wire this node's output to
 -> any output ( e.g. a chart displaying your msg.payload)
 
-> try with OPXFHFGWWHRTSDYBJHZNNATUVAFJUBCNV9ZJXWDPGCAQFTZFDIKCXDZQYHKYHRILZ9QAOR9GHTTATXJSH)
+> try with NHNRYMKA9RLTPLQNWFRHKJGVUXAAPBVYBG9LOXFPKDWVKOUIDILEVCBNGLOPYZEGZMEFSCOOVCKNOPSNB)
 
-This should hold a non-encrypted (public) data packet sequence. (as of 16 april 2019)
+This should hold a non-encrypted (public) data packet sequence. (as of 18 april 2019)
 
 
 ## MAM publish
@@ -67,4 +67,12 @@ wire its output to
 and wire this node's output to an
 -> (optional) output for logging
 
-The MAM publish gets input data from sensorTag, uploads the data packet it receives (can be a mix of temperature, lux etc) and upon MAM confirmation is ready to take new data from your sensorTag device.
+The MAM publish now operates in a loop:
+
+- collects input data from sensorTag (can be a mix of temperature, lux etc)
+- and immediately uploads the 1st data packet to the tangle
+
+loop:
+  ... now waiting for the bundle and its transactions to be confirmed on the tangle, it aggregates all incoming sensor tag data into a data array ...
+- upon MAM confirmation of the previous bundle, it sends this aggregated data array to the tangle
+  ... now waiting again for bundle confirmation

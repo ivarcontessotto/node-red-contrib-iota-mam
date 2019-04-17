@@ -24,8 +24,11 @@ module.exports = function(RED) {
             config.secret = null;
           }
           let resp = MAM.fetch(root, config.mode, config.secret, (result) => {
-            node.send(JSON.parse(IOTA_CONVERTER.trytesToAscii(result)));
-            console.log(IOTA_CONVERTER.trytesToAscii(result))
+            let jsonArray = JSON.parse(IOTA_CONVERTER.trytesToAscii(result));
+            for (var i = 0; i < jsonArray.length; i++) {
+              node.send(jsonArray[i]);
+              // console.log(jsonArray[i])
+            }
           }, config.limit);
         });
     }

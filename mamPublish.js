@@ -9,26 +9,32 @@ module.exports = function(RED) {
         node._state = MAM.init({ provider: config.iotaNode });
         node._state = MAM.changeMode(node._state, config.mode, config.secretKey);
         node.readyMAM = true;
+        node.arrayPackets = []
 
         node.on('input', function(msg) {
-            if (this.readyMAM) {
-              // upload sensorTag's data packet: (msg.payload.json_data)
-              const packet = { time: Date.now(), data: msg.payload.json_data };
-              let trytes = IOTA_CONVERTER.asciiToTrytes(JSON.stringify(packet));
+            // upload sensorTag's data packet: (msg.payload.json_data)
+            const packet = { time: Date.now(), data: msg.payload.json_data };
+            this.arrayPackets.push(packet);
+            console.log(this.arrayPackets.length);
 
+            if (this.readyMAM) {
+              let trytes = IOTA_CONVERTER.asciiToTrytes(JSON.stringify(this.arrayPackets));
               let message = MAM.create(this._state, trytes);
               // Update the mam state so we can keep adding messages.
               this._state = message.state;
 
-              console.log("Uploading dataset via MAM - please wait")
-              console.log(message.address)
+              console.log("Uploading dataset via MAM - please wait");
+              console.log(message.address);
               let resp = MAM.attach(message.payload, message.address);
               this.readyMAM = false;
+              this.arrayPackets = [];
               resp.then(function(result) {
-                 // console.log(result) //will log results.
+                 console.log(result) //will log results.
                  node.readyMAM = true;
-                 node.send({payload:message.address});
+                 node.send({payload: message.address});
               });
+            } else {
+
             }
         });
     }
