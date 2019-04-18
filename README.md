@@ -69,10 +69,13 @@ and wire this node's output to an
 
 The MAM publish now operates in a loop:
 
-- collects input data from sensorTag (can be a mix of temperature, lux etc)
-- and immediately uploads the 1st data packet to the tangle
+1)  collects input data from sensorTag (can be a mix of temperature, lux etc)
+2)  and immediately uploads the 1st data packet to the tangle
 
 loop:
   ... now waiting for the bundle and its transactions to be confirmed on the tangle, it aggregates all incoming sensor tag data into a data array ...
-- upon MAM confirmation of the previous bundle, it sends this aggregated data array to the tangle
+  upon MAM confirmation of the previous bundle, it sends this aggregated data array to the tangle
   ... now waiting again for bundle confirmation
+
+### Rate limits
+on many public nodes you might have rate limits, so better use your own custom node, or make sure the node you connect to has the capacity to handle your sensor data traffic.
