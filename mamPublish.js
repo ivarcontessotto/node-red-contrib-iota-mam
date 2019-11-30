@@ -10,7 +10,8 @@ module.exports = function(RED) {
             node._state = MAM.init({ provider: config.iotaNode });
             node._state = MAM.changeMode(node._state, config.mode, config.secretKey);
             node.readyMAM = true;
-            node.arrayPackets = []
+            node.arrayPackets = [];
+            node.pendingMessage = null;
         }
         catch(err) {
             this.error(`Error Init on iota node: ${err}`);
@@ -24,35 +25,41 @@ module.exports = function(RED) {
                 this.log(`Packet Buffer Length: ${this.arrayPackets.length}`);
 
                 if (this.readyMAM) {
-                    this.log('Last MAM message is confirmed. Publishing new message now.')
+                    this.log('MAM ready so send message.')
 
-                    let trytes = IOTA_CONVERTER.asciiToTrytes(JSON.stringify(this.arrayPackets));
-                    let message = MAM.create(this._state, trytes);
+                    // If last message could be sent successfully we create a new one. Else we retry sending the last one.
+                    if (!this.pendingMessage) {
+                        let trytes = IOTA_CONVERTER.asciiToTrytes(JSON.stringify(this.arrayPackets));
+                        this.pendingMessage = MAM.create(this._state, trytes);
+                        this.arrayPackets = []; // Clear packet buffer
+                        this._state = this.pendingMessage.state; // Update state for the next message.
+                    }
 
-                    // Update the mam state so we can keep adding messages.
-                    this._state = message.state;
-
-                    this.log('Uploading dataset via MAM - please wait');
-                    this.log(`Root Address: ${message.address}`);
-                    let resp = MAM.attach(message.payload, message.address);
-
+                    this.log('Uploading message to MAM Stream - please wait');
+                    this.log(`Address: ${this.pendingMessage.address}`);
+                    let response = MAM.attach(this.pendingMessage.payload, this.pendingMessage.address);
                     this.readyMAM = false;
-                    this.arrayPackets = [];
 
-                    resp.then(result => {
+                    response.then(result => {
                         this.log('Received response for attaching last message. Confirmed Transactions:');
                         for (let i = 0; i < result.length; i++) {
                             this.log(`Transaction Hash: ${result[i].hash}`);
                         }
+
+                        if (result.length > 0) {
+                            // Go to next state when sure transactions have been attached.
+                            node.send({payload: this.pendingMessage.address});
+                            this.pendingMessage = null; // Delete pending message to signal that a new one can be sent.
+                        }
                         node.readyMAM = true;
-                        node.send({payload: message.address});
+
                     }).catch(err => {
-                        node.readyMAM = true;
                         this.error(`Error uploading dataset via MAM: ${err}`);
+                        node.readyMAM = true;
                     });
                 }
                 else {
-                    this.log('Last MAM message not confirmed yet. Only collecting packet for next message.');
+                    this.log('MAM not ready yet. Collecting packet for next message.');
                 }
              }
              catch(err) {
