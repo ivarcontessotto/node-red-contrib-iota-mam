@@ -8,6 +8,7 @@ module.exports = function(RED) {
             var node = this;
             this.log(`Init on iota node: ${config.iotaNode}`);
             node._state = MAM.init({ provider: config.iotaNode });
+            this.log(`Mode: ${config.mode}, SecretKey: ${config.secretKey}`);
             node._state = MAM.changeMode(node._state, config.mode, config.secretKey);
             node.readyMAM = true;
             node.arrayPackets = [];
@@ -48,7 +49,7 @@ module.exports = function(RED) {
 
                         if (result.length > 0) {
                             // Go to next state when sure transactions have been attached.
-                            node.send({payload: this.pendingMessage.address});
+                            node.send({payload: {address: this.pendingMessage.address, root: this.pendingMessage.root}});
                             this.pendingMessage = null; // Delete pending message to signal that a new one can be sent.
                         }
                         node.readyMAM = true;
